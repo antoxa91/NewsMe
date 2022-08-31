@@ -14,52 +14,59 @@ final class ViewController: UIViewController {
         let table = UITableView()
         table.register(NewsTableViewCell.self,
                        forCellReuseIdentifier: NewsTableViewCell.identifier)
+        table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
         
+    private let categoriesCollectionView = CategoriesCollectionView()
     private lazy var searchVC = UISearchController(searchResultsController: nil)
-
+    
     private var articles = [Article]()
     private var viewModels = [NewsTableViewCellViewModel]()
+    
+    private var isRusNews = true
+    private var currentCategory: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Популярное"
+        title = "Новости"
         view.addSubview(tableView)
+        view.addSubview(categoriesCollectionView)
         view.backgroundColor = .systemBackground
         tableView.delegate = self
         tableView.dataSource = self
-        
+        categoriesCollectionView.cellDelegate = self
+
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "globe"), menu: changeCountry())
 
-        fetchCategoryStories(.russia, .top)
+        fetchCategoryStories(.russia, .general)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        tableView.frame = view.bounds
+        setConstraints()
     }
     
     private func changeCountry() -> UIMenu {
         let russia = UIAction(
            title: "Россия",
            image: UIImage(named: "ru")?.withRenderingMode(.alwaysOriginal)) {[weak self] _ in
-               APICaller.shared.getCategoryStories(.russia, .top) {[weak self] result in
+               APICaller.shared.getCategoryStories(.russia, NewsCategory(rawValue: self!.currentCategory) ?? .general) {[weak self] result in
                    self?.switchResult(result: result)
                }
                self?.navigationItem.searchController = nil
-               self?.title = "Популярное"
+               self?.isRusNews = true
            }
         
         let usa = UIAction(
            title: "USA",
            image: UIImage(named: "us")?.withRenderingMode(.alwaysOriginal)) {[weak self] _ in
-               APICaller.shared.getCategoryStories(.usa, .top) {[weak self] result in
+               APICaller.shared.getCategoryStories(.usa, NewsCategory(rawValue: self!.currentCategory!) ?? .general) {[weak self] result in
                    self?.switchResult(result: result)
                }
-               self?.title = "Top"
                self?.createSearchBar()
+               self?.isRusNews = false
            }
         
         let menu = UIMenu(title: "Выбери страну для новостей", image: nil, children: [russia, usa])
@@ -92,7 +99,19 @@ final class ViewController: UIViewController {
             fatalError(error.localizedDescription)
         }
     }
-    
+}
+
+// MARK: - SelectCollectionViewItemProtocol
+extension ViewController: SelectCollectionViewItemProtocol {
+    func selectItem(index: IndexPath) {
+        currentCategory = Constants.nameForCategories[index.item]
+
+        if isRusNews {
+            fetchCategoryStories(.russia, NewsCategory(rawValue: currentCategory) ?? .general)
+        } else {
+            fetchCategoryStories(.usa, NewsCategory(rawValue: currentCategory) ?? .general)
+        }
+    }
 }
 
 // MARK: - UITableViewDataSource & UITableViewDelegate
@@ -132,7 +151,7 @@ extension ViewController: UISearchBarDelegate {
     private func createSearchBar() {
         navigationItem.searchController = searchVC
         searchVC.searchBar.delegate = self
-        searchVC.searchBar.placeholder = "Search in Top Categories in USA"
+        searchVC.searchBar.placeholder = "Поиск в популярном в США"
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -143,5 +162,21 @@ extension ViewController: UISearchBarDelegate {
         APICaller.shared.search(with: text) { [weak self] result in
             self?.switchResult(result: result)
         }
+    }
+}
+
+extension ViewController {
+    private func setConstraints() {
+        NSLayoutConstraint.activate([
+            categoriesCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            categoriesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            categoriesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            categoriesCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05),
+
+            tableView.topAnchor.constraint(equalTo: categoriesCollectionView.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
 }

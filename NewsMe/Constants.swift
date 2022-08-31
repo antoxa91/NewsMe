@@ -11,6 +11,12 @@ struct Constants {
     static let searchURLString = "https://newsapi.org/v2/everything?sortedBy=popularity&apiKey=\(newsApiKey)&q="
    
     static let categoryURLString = "https://newsapi.org/v2/top-headlines?apiKey=\(newsApiKey)&country="
+    
+    static let nameForCategories = [
+        NewsCategory.general.rawValue, NewsCategory.sports.rawValue,
+        NewsCategory.technology.rawValue, NewsCategory.science.rawValue,
+        NewsCategory.health.rawValue, NewsCategory.entertainment.rawValue,
+        NewsCategory.business.rawValue]
 }
 
 enum Country: String {
@@ -26,5 +32,4 @@ enum NewsCategory: String {
     case science =       "science"
     case sports =        "sports"
     case technology =    "technology"
-    case top = ""
 }
