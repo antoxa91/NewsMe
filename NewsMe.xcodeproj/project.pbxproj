@@ -68,9 +68,9 @@
 			children = (
 				C54D853C28BCBC4300FCBA5F /* Application */,
 				C55E319328BCC2EA005A1595 /* Network */,
-				C54D850A28BCA29200FCBA5F /* ViewController.swift */,
 				C58C707128BF408B0046E8D4 /* APIKeys */,
 				C55E319628BCC8E1005A1595 /* NewsTableViewCell.swift */,
+				C54D850A28BCA29200FCBA5F /* ViewController.swift */,
 				C56A268B28BE19AA00ACE301 /* Constants.swift */,
 				C54D851128BCA29300FCBA5F /* LaunchScreen.storyboard */,
 				C54D850F28BCA29300FCBA5F /* Assets.xcassets */,

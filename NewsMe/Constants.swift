@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+//key from = https://newsapi.org
 struct Constants {
     static let searchURLString = "https://newsapi.org/v2/everything?sortedBy=popularity&apiKey=\(newsApiKey)&q="
    
