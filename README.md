@@ -3,5 +3,7 @@
 News with categories in Russia and USA(with search)
 
 
-![Simulator Screen Shot - iPhone 12 Pro Max - 2022-08-31 at 11 28 49](https://user-images.githubusercontent.com/69522563/187616246-5da3daeb-c9f0-4c8e-aa2d-e3f85aa8b262.png)
+![Light Rus](https://user-images.githubusercontent.com/69522563/187966051-4f5d18aa-5c4f-432f-b9b4-c6950f6ddf5f.png)
+
+![Light Rus](https://user-images.githubusercontent.com/69522563/187966086-4ddeb563-3f3d-413e-8a40-54821c426865.png)
 
