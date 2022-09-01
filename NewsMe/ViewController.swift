@@ -26,7 +26,7 @@ final class ViewController: UIViewController {
     private var viewModels = [NewsTableViewCellViewModel]()
     
     private var isRusNews = true
-    private var currentCategory: String!
+    private var currentCategory: String? = "general"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,10 +50,12 @@ final class ViewController: UIViewController {
     }
     
     private func changeCountry() -> UIMenu {
+        guard let current = currentCategory else { return UIMenu() }
+
         let russia = UIAction(
             title: "Россия",
             image: UIImage(named: "ru")?.withRenderingMode(.alwaysOriginal)) {[weak self] _ in
-                APICaller.shared.getCategoryStories(.russia, NewsCategory(rawValue: self!.currentCategory) ?? .general) {[weak self] result in
+                APICaller.shared.getCategoryStories(.russia, NewsCategory(rawValue: current) ?? .general) {[weak self] result in
                     self?.switchResult(result: result)
                 }
                 self?.navigationItem.searchController = nil
@@ -63,7 +65,7 @@ final class ViewController: UIViewController {
         let usa = UIAction(
             title: "USA",
             image: UIImage(named: "us")?.withRenderingMode(.alwaysOriginal)) {[weak self] _ in
-                APICaller.shared.getCategoryStories(.usa, NewsCategory(rawValue: self!.currentCategory) ?? .general) {[weak self] result in
+                APICaller.shared.getCategoryStories(.usa, NewsCategory(rawValue: current) ?? .general) {[weak self] result in
                     self?.switchResult(result: result)
                 }
                 self?.createSearchBar()
@@ -107,11 +109,12 @@ final class ViewController: UIViewController {
 extension ViewController: SelectCollectionViewItemProtocol {
     func selectItem(index: IndexPath) {
         currentCategory = Constants.nameForCategories[index.item]
+        guard let current = currentCategory else { return }
         
         if isRusNews {
-            fetchCategoryStories(.russia, NewsCategory(rawValue: currentCategory) ?? .general)
+            fetchCategoryStories(.russia, NewsCategory(rawValue: current) ?? .general)
         } else {
-            fetchCategoryStories(.usa, NewsCategory(rawValue: currentCategory) ?? .general)
+            fetchCategoryStories(.usa, NewsCategory(rawValue: current) ?? .general)
         }
     }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C53BE9AB28C1105400316901 /* LaunchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53BE9AA28C1105400316901 /* LaunchVC.swift */; };
 		C54D850728BCA29200FCBA5F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54D850628BCA29200FCBA5F /* AppDelegate.swift */; };
 		C54D850928BCA29200FCBA5F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54D850828BCA29200FCBA5F /* SceneDelegate.swift */; };
 		C54D850B28BCA29200FCBA5F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54D850A28BCA29200FCBA5F /* ViewController.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C53BE9AA28C1105400316901 /* LaunchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchVC.swift; sourceTree = "<group>"; };
 		C54D850328BCA29200FCBA5F /* NewsMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C54D850628BCA29200FCBA5F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C54D850828BCA29200FCBA5F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -75,13 +77,14 @@
 				C54D853C28BCBC4300FCBA5F /* Application */,
 				C55E319328BCC2EA005A1595 /* Network */,
 				C58C707128BF408B0046E8D4 /* APIKeys */,
-				C55E319628BCC8E1005A1595 /* NewsTableViewCell.swift */,
 				C54D850A28BCA29200FCBA5F /* ViewController.swift */,
+				C55E319628BCC8E1005A1595 /* NewsTableViewCell.swift */,
 				C56A268B28BE19AA00ACE301 /* Constants.swift */,
-				C54D851128BCA29300FCBA5F /* LaunchScreen.storyboard */,
 				C54D850F28BCA29300FCBA5F /* Assets.xcassets */,
 				C574C95628BF629B00A6CFFB /* Categories */,
 				C5F30E2328C0CCAE003605E6 /* UIImage + Extension.swift */,
+				C53BE9AA28C1105400316901 /* LaunchVC.swift */,
+				C54D851128BCA29300FCBA5F /* LaunchScreen.storyboard */,
 				C54D851428BCA29300FCBA5F /* Info.plist */,
 			);
 			path = NewsMe;
@@ -194,6 +197,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C54D850B28BCA29200FCBA5F /* ViewController.swift in Sources */,
+				C53BE9AB28C1105400316901 /* LaunchVC.swift in Sources */,
 				C54D850728BCA29200FCBA5F /* AppDelegate.swift in Sources */,
 				C55E319728BCC8E1005A1595 /* NewsTableViewCell.swift in Sources */,
 				C54D850928BCA29200FCBA5F /* SceneDelegate.swift in Sources */,
