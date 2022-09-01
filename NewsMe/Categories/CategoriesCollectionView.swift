@@ -11,7 +11,7 @@ protocol SelectCollectionViewItemProtocol {
     func selectItem(index: IndexPath)
 }
 
-class CategoriesCollectionView: UICollectionView {
+final class CategoriesCollectionView: UICollectionView {
     
     private let categoryLayout = UICollectionViewFlowLayout()
 
@@ -50,6 +50,9 @@ extension CategoriesCollectionView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoriesCollectionViewCell.identifier, for: indexPath) as? CategoriesCollectionViewCell else { return UICollectionViewCell() }
         cell.categoryNameLabel.text = nameRusCategories[indexPath.item]
+        cell.layer.shadowColor = UIColor.systemMint.cgColor
+        cell.layer.shadowOpacity = 1
+        cell.layer.shadowRadius = 15
         return cell
     }
 }

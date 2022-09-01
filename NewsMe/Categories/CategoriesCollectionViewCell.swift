@@ -7,17 +7,17 @@
 
 import UIKit
 
-class CategoriesCollectionViewCell: UICollectionViewCell {
+final class CategoriesCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "CategoriesCollectionViewCell"
     
     let categoryNameLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         return label
     }()
-
+    
     override var isSelected: Bool {
         didSet {
             layer.borderColor = self.isSelected ? UIColor.systemMint.cgColor : .none
@@ -31,8 +31,8 @@ class CategoriesCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-       setupView()
-       setConstraints()
+        setupView()
+        setConstraints()
     }
     
     required init?(coder: NSCoder) {

@@ -7,7 +7,7 @@
 
 import Foundation
 
-class NewsTableViewCellViewModel {
+final class NewsTableViewCellViewModel {
     let title: String
     let imageURL: URL?
     var imageData: Data? = nil

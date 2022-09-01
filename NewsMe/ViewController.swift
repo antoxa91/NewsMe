@@ -9,15 +9,16 @@ import SafariServices
 import UIKit
 
 final class ViewController: UIViewController {
-
+    
     private let tableView: UITableView = {
         let table = UITableView()
         table.register(NewsTableViewCell.self,
                        forCellReuseIdentifier: NewsTableViewCell.identifier)
         table.translatesAutoresizingMaskIntoConstraints = false
+        table.separatorStyle = .none
         return table
     }()
-        
+    
     private let categoriesCollectionView = CategoriesCollectionView()
     private lazy var searchVC = UISearchController(searchResultsController: nil)
     
@@ -29,7 +30,7 @@ final class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         title = "Новости"
         view.addSubview(tableView)
         view.addSubview(categoriesCollectionView)
@@ -37,9 +38,9 @@ final class ViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         categoriesCollectionView.cellDelegate = self
-
+        
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "globe"), menu: changeCountry())
-
+        
         fetchCategoryStories(.russia, .general)
     }
     
@@ -50,29 +51,29 @@ final class ViewController: UIViewController {
     
     private func changeCountry() -> UIMenu {
         let russia = UIAction(
-           title: "Россия",
-           image: UIImage(named: "ru")?.withRenderingMode(.alwaysOriginal)) {[weak self] _ in
-               APICaller.shared.getCategoryStories(.russia, NewsCategory(rawValue: self!.currentCategory) ?? .general) {[weak self] result in
-                   self?.switchResult(result: result)
-               }
-               self?.navigationItem.searchController = nil
-               self?.isRusNews = true
-           }
+            title: "Россия",
+            image: UIImage(named: "ru")?.withRenderingMode(.alwaysOriginal)) {[weak self] _ in
+                APICaller.shared.getCategoryStories(.russia, NewsCategory(rawValue: self!.currentCategory) ?? .general) {[weak self] result in
+                    self?.switchResult(result: result)
+                }
+                self?.navigationItem.searchController = nil
+                self?.isRusNews = true
+            }
         
         let usa = UIAction(
-           title: "USA",
-           image: UIImage(named: "us")?.withRenderingMode(.alwaysOriginal)) {[weak self] _ in
-               APICaller.shared.getCategoryStories(.usa, NewsCategory(rawValue: self!.currentCategory!) ?? .general) {[weak self] result in
-                   self?.switchResult(result: result)
-               }
-               self?.createSearchBar()
-               self?.isRusNews = false
-           }
+            title: "USA",
+            image: UIImage(named: "us")?.withRenderingMode(.alwaysOriginal)) {[weak self] _ in
+                APICaller.shared.getCategoryStories(.usa, NewsCategory(rawValue: self!.currentCategory) ?? .general) {[weak self] result in
+                    self?.switchResult(result: result)
+                }
+                self?.createSearchBar()
+                self?.isRusNews = false
+            }
         
         let menu = UIMenu(title: "Выбери страну для новостей", image: nil, children: [russia, usa])
         return menu
-   }
-
+    }
+    
     private func fetchCategoryStories(_ countryName: Country, _ category: NewsCategory) {
         APICaller.shared.getCategoryStories(countryName, category) {[weak self] result in
             self?.switchResult(result: result)
@@ -80,13 +81,14 @@ final class ViewController: UIViewController {
     }
     
     private func switchResult(result: Result<[Article], Error>) {
+        let defaultImage = "https://mmuresearchblog.files.wordpress.com/2013/04/news.jpg"
         switch result {
         case .success(let articles):
             self.articles = articles
             self.viewModels = articles.compactMap({
                 NewsTableViewCellViewModel(
                     title: $0.title,
-                    imageURL: URL(string: $0.urlToImage ?? ""),
+                    imageURL: URL(string: $0.urlToImage ?? defaultImage),
                     publishedAt: $0.publishedAt,
                     source: $0.source?.name ?? ""
                 )
@@ -105,7 +107,7 @@ final class ViewController: UIViewController {
 extension ViewController: SelectCollectionViewItemProtocol {
     func selectItem(index: IndexPath) {
         currentCategory = Constants.nameForCategories[index.item]
-
+        
         if isRusNews {
             fetchCategoryStories(.russia, NewsCategory(rawValue: currentCategory) ?? .general)
         } else {
@@ -172,7 +174,7 @@ extension ViewController {
             categoriesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             categoriesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             categoriesCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05),
-
+            
             tableView.topAnchor.constraint(equalTo: categoriesCollectionView.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
