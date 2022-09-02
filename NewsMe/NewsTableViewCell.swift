@@ -24,7 +24,7 @@ class NewsTableViewCell: UITableViewCell {
         imageView.clipsToBounds = true
         imageView.layer.masksToBounds = true
         imageView.backgroundColor = .secondarySystemBackground
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -75,7 +75,7 @@ class NewsTableViewCell: UITableViewCell {
                     return
                 }
                 viewModel.imageData = data
-                DispatchQueue.main.async {
+                DispatchQueue.main.async { [weak self] in
                     self?.newsImageView.image = self?.compressImage(image: (UIImage(data: data) ?? UIImage(named: "newsPicDefault"))!)
                 }
             }.resume()
@@ -92,8 +92,8 @@ class NewsTableViewCell: UITableViewCell {
     }
     
     private func compressImage(image: UIImage) -> UIImage {
-        let resizedImage = image.aspectFittedToHeight(80)
-        resizedImage.jpegData(compressionQuality: 0.2)
+        let resizedImage = image.aspectFittedToHeight(100)
+        resizedImage.jpegData(compressionQuality: 0.5)
         return resizedImage
     }
     

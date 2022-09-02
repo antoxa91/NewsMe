@@ -39,7 +39,7 @@ final class ViewController: UIViewController {
         tableView.dataSource = self
         categoriesCollectionView.cellDelegate = self
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "globe"), menu: changeCountry())
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "globe"), menu: changeCountry())
         
         fetchCategoryStories(.russia, .general)
     }
@@ -57,8 +57,8 @@ final class ViewController: UIViewController {
             image: UIImage(named: "ru")?.withRenderingMode(.alwaysOriginal)) {[weak self] _ in
                 APICaller.shared.getCategoryStories(.russia, NewsCategory(rawValue: current) ?? .general) {[weak self] result in
                     self?.switchResult(result: result)
+                    self?.navigationItem.searchController = nil
                 }
-                self?.navigationItem.searchController = nil
                 self?.isRusNews = true
             }
         
@@ -67,8 +67,8 @@ final class ViewController: UIViewController {
             image: UIImage(named: "us")?.withRenderingMode(.alwaysOriginal)) {[weak self] _ in
                 APICaller.shared.getCategoryStories(.usa, NewsCategory(rawValue: current) ?? .general) {[weak self] result in
                     self?.switchResult(result: result)
+                    self?.createSearchBar()
                 }
-                self?.createSearchBar()
                 self?.isRusNews = false
             }
         
@@ -99,8 +99,8 @@ final class ViewController: UIViewController {
                 self.tableView.reloadData()
                 self.searchVC.dismiss(animated: true, completion: nil)
             }
-        case .failure(let error):
-            fatalError(error.localizedDescription)
+        case .failure(_):
+            break
         }
     }
 }
@@ -148,6 +148,17 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         view.frame.height / 7
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y > 100 {
+            scrollView.bounces = true
+        } else {
+            scrollView.bounces = false
+            DispatchQueue.main.async {[weak self] in
+                self?.navigationController?.navigationBar.sizeToFit()
+            }
+        }
+    }
 }
 
 
@@ -156,7 +167,7 @@ extension ViewController: UISearchBarDelegate {
     private func createSearchBar() {
         navigationItem.searchController = searchVC
         searchVC.searchBar.delegate = self
-        searchVC.searchBar.placeholder = "Поиск в популярном в США"
+        searchVC.searchBar.placeholder = "Введите слово на английском"
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -170,6 +181,7 @@ extension ViewController: UISearchBarDelegate {
     }
 }
 
+// MARK: - Constraints
 extension ViewController {
     private func setConstraints() {
         NSLayoutConstraint.activate([
