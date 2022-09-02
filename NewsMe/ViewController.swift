@@ -57,7 +57,9 @@ final class ViewController: UIViewController {
             image: UIImage(named: "ru")?.withRenderingMode(.alwaysOriginal)) {[weak self] _ in
                 APICaller.shared.getCategoryStories(.russia, NewsCategory(rawValue: current) ?? .general) {[weak self] result in
                     self?.switchResult(result: result)
-                    self?.navigationItem.searchController = nil
+                    DispatchQueue.main.async {
+                        self?.navigationItem.searchController = nil
+                    }
                 }
                 self?.isRusNews = true
             }
@@ -141,8 +143,17 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             return
         }
         
-        let vc = SFSafariViewController(url: url)
-        present(vc, animated: true)
+        UIView.animate(withDuration: 0.5, animations: {
+        }) { done in
+            if done {
+                DispatchQueue.main.async {
+                    let vc = SFSafariViewController(url: url)
+                    vc.modalTransitionStyle = .flipHorizontal
+                    vc.modalPresentationStyle = .overFullScreen
+                    self.present(vc, animated: true)
+                }
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -165,9 +176,11 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
 // MARK: - Search
 extension ViewController: UISearchBarDelegate {
     private func createSearchBar() {
-        navigationItem.searchController = searchVC
-        searchVC.searchBar.delegate = self
-        searchVC.searchBar.placeholder = "Введите слово на английском"
+        DispatchQueue.main.async {
+            self.navigationItem.searchController = self.searchVC
+            self.searchVC.searchBar.delegate = self
+            self.searchVC.searchBar.placeholder = "Введите слово на английском"
+        }
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
