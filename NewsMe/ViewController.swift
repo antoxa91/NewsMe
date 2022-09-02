@@ -59,6 +59,8 @@ final class ViewController: UIViewController {
                     self?.switchResult(result: result)
                     DispatchQueue.main.async {
                         self?.navigationItem.searchController = nil
+                        self?.navigationController?.navigationBar.sizeToFit()
+
                     }
                 }
                 self?.isRusNews = true
