@@ -3,8 +3,6 @@
 News with categories in Russia and USA(with search)
 
 
-![Light Rus](https://user-images.githubusercontent.com/69522563/187966051-4f5d18aa-5c4f-432f-b9b4-c6950f6ddf5f.png)
+![Simulator Screen Shot - iPhone 12 Pro Max - 2022-09-07 at 14 27 14](https://user-images.githubusercontent.com/69522563/188844250-616a74ee-4467-4b53-a1d6-d7a0f29c14c6.png)
 
-
-![Dark US](https://user-images.githubusercontent.com/69522563/187966219-56578fe3-b221-45f1-b6c2-7587da13fa53.png)
-
+![Simulator Screen Shot - iPhone 12 Pro Max - 2022-09-07 at 14 29 04](https://user-images.githubusercontent.com/69522563/188844281-d1302053-3077-4633-91c2-f6660fcba7c4.png)
