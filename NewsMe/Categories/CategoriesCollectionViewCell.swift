@@ -14,18 +14,20 @@ final class CategoriesCollectionViewCell: UICollectionViewCell {
     let categoryNameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .secondaryLabel
         label.textAlignment = .center
         return label
     }()
     
     override var isSelected: Bool {
         didSet {
-            layer.borderColor = self.isSelected ? UIColor.systemMint.cgColor : .none
-            layer.borderWidth = self.isSelected ? 2 : 0
-            categoryNameLabel.font = self.isSelected ?
-            UIFont(name: "Noto Sans Oriya Bold", size: 20) :
-            UIFont(name: "Noto Sans Oriya Light", size: 15)
+            categoryNameLabel.textColor = self.isSelected ? .label : .secondaryLabel
         }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        categoryNameLabel.font = UIFont(name: "Noto Sans Oriya Bold", size: frame.height/2)
     }
     
     override init(frame: CGRect) {

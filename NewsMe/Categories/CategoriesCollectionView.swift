@@ -14,8 +14,6 @@ protocol SelectCollectionViewItemProtocol {
 final class CategoriesCollectionView: UICollectionView {
     
     private let categoryLayout = UICollectionViewFlowLayout()
-
-    let nameRusCategories = ["Главное", "Спорт", "Технологии", "Наука", "Здоровье", "Развлечения", "Бизнес" ]
      
     var cellDelegate: SelectCollectionViewItemProtocol?
     
@@ -44,15 +42,15 @@ final class CategoriesCollectionView: UICollectionView {
 // MARK: - UICollectionViewDataSource
 extension CategoriesCollectionView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        nameRusCategories.count
+        Constants.nameForCategories.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoriesCollectionViewCell.identifier, for: indexPath) as? CategoriesCollectionViewCell else { return UICollectionViewCell() }
-        cell.categoryNameLabel.text = nameRusCategories[indexPath.item]
+        cell.categoryNameLabel.text = Constants.nameForCategories[indexPath.row].localizedCapitalized.localized()// localized()
         cell.layer.shadowColor = UIColor.systemMint.cgColor
         cell.layer.shadowOpacity = 1
-        cell.layer.shadowRadius = 15
+        cell.layer.shadowRadius = 12
         return cell
     }
 }
@@ -67,9 +65,11 @@ extension CategoriesCollectionView: UICollectionViewDelegate {
 
 extension CategoriesCollectionView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let categoryFont = UIFont(name: "Helvetica", size: 20)
-        let categoryAttributes = [NSAttributedString.Key.font: categoryFont as Any]
-        let categoryWidth = nameRusCategories[indexPath.item].size(withAttributes: categoryAttributes).width + 20
+        let categoryAttributes: [NSAttributedString.Key : Any] = [
+            .font: UIFont.systemFont(ofSize: frame.height/2, weight: .bold)
+        ]
+        
+        let categoryWidth = Constants.nameForCategories[indexPath.item].localized().size(withAttributes: categoryAttributes).width * 1.2
         
         return CGSize(width: categoryWidth,
                       height: collectionView.frame.height)

@@ -1,0 +1,21 @@
+/* 
+  Localizable.strings
+  NewsMe
+
+  Created by Антон Стафеев on 05.09.2022.
+  
+*/
+
+"News" = "Новости";
+"Choose a country for news" = "Выбери страну для новостей";
+"Enter a word in English" = "Введите слово на английском";
+"Russia" = "Россия";
+"USA" = "США";
+
+"General" = "Главное";
+"Sports" = "Спорт";
+"Technology" = "Технологии";
+"Science" = "Наука";
+"Health" = "Здравие";
+"Entertainment" = "Развлечения";
+"Business" = "Бизнес";

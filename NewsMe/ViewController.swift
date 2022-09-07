@@ -31,7 +31,7 @@ final class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Новости"
+        title = "News".localized()
         view.addSubview(tableView)
         view.addSubview(categoriesCollectionView)
         view.backgroundColor = .systemBackground
@@ -53,7 +53,7 @@ final class ViewController: UIViewController {
         guard let current = currentCategory else { return UIMenu() }
 
         let russia = UIAction(
-            title: "Россия",
+            title: "Russia".localized(),
             image: UIImage(named: "ru")?.withRenderingMode(.alwaysOriginal)) {[weak self] _ in
                 APICaller.shared.getCategoryStories(.russia, NewsCategory(rawValue: current) ?? .general) {[weak self] result in
                     self?.switchResult(result: result)
@@ -67,7 +67,7 @@ final class ViewController: UIViewController {
             }
         
         let usa = UIAction(
-            title: "USA",
+            title: "USA".localized(),
             image: UIImage(named: "us")?.withRenderingMode(.alwaysOriginal)) {[weak self] _ in
                 APICaller.shared.getCategoryStories(.usa, NewsCategory(rawValue: current) ?? .general) {[weak self] result in
                     self?.switchResult(result: result)
@@ -76,7 +76,7 @@ final class ViewController: UIViewController {
                 self?.isRusNews = false
             }
         
-        let menu = UIMenu(title: "Выбери страну для новостей", image: nil, children: [russia, usa])
+        let menu = UIMenu(title: "Choose a country for news".localized(), image: nil, children: [russia, usa])
         return menu
     }
     
@@ -181,7 +181,7 @@ extension ViewController: UISearchBarDelegate {
         DispatchQueue.main.async {
             self.navigationItem.searchController = self.searchVC
             self.searchVC.searchBar.delegate = self
-            self.searchVC.searchBar.placeholder = "Введите слово на английском"
+            self.searchVC.searchBar.placeholder = "Enter a word in English".localized()
         }
     }
     

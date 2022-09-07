@@ -1,5 +1,5 @@
 //
-//  UIImage + Extension.swift
+//  Extension + UIImage.swift
 //  NewsMe
 //
 //  Created by Антон Стафеев on 01.09.2022.
