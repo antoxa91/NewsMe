@@ -75,8 +75,17 @@ class NewsTableViewCell: UITableViewCell {
                     return
                 }
                 viewModel.imageData = data
+                
+                let image = self?.compressImage(image: (UIImage(data: data) ?? UIImage(named: "newsPicDefault"))!)
+                
                 DispatchQueue.main.async { [weak self] in
-                    self?.newsImageView.image = self?.compressImage(image: (UIImage(data: data) ?? UIImage(named: "newsPicDefault"))!)
+                    UIView.transition(
+                        with: self?.newsImageView ?? UIImageView(),
+                        duration: 0.9,
+                        options: [.curveEaseOut, .transitionCrossDissolve],
+                        animations: {
+                            self?.newsImageView.image = image
+                        })
                 }
             }.resume()
         }
@@ -96,7 +105,7 @@ class NewsTableViewCell: UITableViewCell {
         resizedImage.jpegData(compressionQuality: 0.5)
         return resizedImage
     }
-    
+        
     private func convertDateFormat(inputDate: String) -> String {
         let oldDateFormatter = DateFormatter()
         oldDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"

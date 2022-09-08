@@ -82,16 +82,15 @@
 				C54D853C28BCBC4300FCBA5F /* Application */,
 				C55E319328BCC2EA005A1595 /* Network */,
 				C58C707128BF408B0046E8D4 /* APIKeys */,
+				C58CE38E28C9D53B00795B1F /* Localization */,
 				C54D850A28BCA29200FCBA5F /* ViewController.swift */,
 				C55E319628BCC8E1005A1595 /* NewsTableViewCell.swift */,
-				C56A268B28BE19AA00ACE301 /* Constants.swift */,
-				C54D850F28BCA29300FCBA5F /* Assets.xcassets */,
 				C574C95628BF629B00A6CFFB /* Categories */,
+				C56A268B28BE19AA00ACE301 /* Constants.swift */,
+				C5F30E2328C0CCAE003605E6 /* Extension + UIImage.swift */,
 				C53BE9AA28C1105400316901 /* LaunchVC.swift */,
 				C54D851128BCA29300FCBA5F /* LaunchScreen.storyboard */,
-				C5F30E2328C0CCAE003605E6 /* Extension + UIImage.swift */,
-				C508E3D928C64952007E2516 /* Extension + String.swift */,
-				C508E3DF28C649F6007E2516 /* Localizable.strings */,
+				C54D850F28BCA29300FCBA5F /* Assets.xcassets */,
 				C54D851428BCA29300FCBA5F /* Info.plist */,
 			);
 			path = NewsMe;
@@ -131,6 +130,15 @@
 				C58C707228BF408B0046E8D4 /* Keys.swift */,
 			);
 			path = APIKeys;
+			sourceTree = "<group>";
+		};
+		C58CE38E28C9D53B00795B1F /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				C508E3D928C64952007E2516 /* Extension + String.swift */,
+				C508E3DF28C649F6007E2516 /* Localizable.strings */,
+			);
+			path = Localization;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

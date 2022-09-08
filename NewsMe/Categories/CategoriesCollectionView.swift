@@ -47,10 +47,10 @@ extension CategoriesCollectionView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoriesCollectionViewCell.identifier, for: indexPath) as? CategoriesCollectionViewCell else { return UICollectionViewCell() }
-        cell.categoryNameLabel.text = Constants.nameForCategories[indexPath.row].localizedCapitalized.localized()// localized()
+        cell.categoryNameLabel.text = Constants.nameForCategories[indexPath.row].localizedCapitalized.localized()
         cell.layer.shadowColor = UIColor.systemMint.cgColor
         cell.layer.shadowOpacity = 1
-        cell.layer.shadowRadius = 12
+        cell.layer.shadowRadius = 20
         return cell
     }
 }
