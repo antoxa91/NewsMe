@@ -60,7 +60,6 @@ final class ViewController: UIViewController {
                     DispatchQueue.main.async {
                         self?.navigationItem.searchController = nil
                         self?.navigationController?.navigationBar.sizeToFit()
-
                     }
                 }
                 self?.isRusNews = true
@@ -167,8 +166,8 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             scrollView.bounces = true
         } else {
             scrollView.bounces = false
-            DispatchQueue.main.async {[weak self] in
-                self?.navigationController?.navigationBar.sizeToFit()
+            DispatchQueue.main.async {
+                self.navigationController?.navigationBar.sizeToFit()
             }
         }
     }

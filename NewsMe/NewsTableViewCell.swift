@@ -78,7 +78,7 @@ class NewsTableViewCell: UITableViewCell {
                 
                 let image = self?.compressImage(image: (UIImage(data: data) ?? UIImage(named: "newsPicDefault"))!)
                 
-                DispatchQueue.main.async { [weak self] in
+                DispatchQueue.main.async {
                     UIView.transition(
                         with: self?.newsImageView ?? UIImageView(),
                         duration: 0.9,
@@ -101,8 +101,8 @@ class NewsTableViewCell: UITableViewCell {
     }
     
     private func compressImage(image: UIImage) -> UIImage {
-        let resizedImage = image.aspectFittedToHeight(100)
-        resizedImage.jpegData(compressionQuality: 0.5)
+        let resizedImage = image.aspectFittedToHeight(60)
+        resizedImage.jpegData(compressionQuality: 0.2)
         return resizedImage
     }
         
