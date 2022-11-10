@@ -30,7 +30,13 @@ final class APICaller {
     }
     
     private func callTask(url: URL, completion: @escaping (Result<[Article], Error>) -> Void) {
-        let task = URLSession.shared.dataTask(with: url) { data, _, error in
+        
+        let configuration = URLSessionConfiguration.default
+        //Используйте данные кеша, если исходный источник может их проверить; в противном случае загрузите из источника
+        configuration.requestCachePolicy = .reloadRevalidatingCacheData
+        let urlSession = URLSession(configuration: configuration)
+        
+        urlSession.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil else { return }
             
             do {
@@ -41,7 +47,7 @@ final class APICaller {
                 completion(.failure(error))
             }
         }
-        task.resume()
+        .resume()
     }
     
 }
